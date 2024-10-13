@@ -23,7 +23,7 @@
 
         .layer2 {
             width: 1280px;
-            height: 50px;
+            height: 100px;
             position: absolute;
             bottom: 0;
             background-color: transparent;
@@ -40,10 +40,14 @@
         .layer2-text .line1 {
             font-size: 1em;
             font-weight: bold;
+            position: absolute;
+            bottom: 50px;
         }
 
         .layer2-text .line2 {
             font-size: 0.7em;
+            position: absolute;
+            bottom: 0;
         }
 
         .tabs {
@@ -110,7 +114,7 @@
         // Zustände von Layer 1 und Layer 2
         let layer1State = {
             enabled: false,
-            color: 'transparent',
+            color: 'black',
             opacity: 1
         };
 
@@ -145,6 +149,12 @@
         function applyLayer1() {
             const vorschau = document.getElementById('vorschau');
             const layer1Button = document.querySelector("#content-frame").contentWindow.document.getElementById('toggleButton');
+            const colorSelect = document.querySelector("#content-frame").contentWindow.document.getElementById('colorSelect');
+            const opacityRange = document.querySelector("#content-frame").contentWindow.document.getElementById('opacityRange');
+
+            colorSelect.value = layer1State.color;
+            opacityRange.value = layer1State.opacity;
+
             if (layer1State.enabled) {
                 vorschau.style.backgroundColor = layer1State.color;
                 vorschau.style.opacity = layer1State.opacity;
@@ -175,6 +185,12 @@
             const line1 = document.getElementById('layer2Line1');
             const line2 = document.getElementById('layer2Line2');
             const layer2Button = document.querySelector("#content-frame").contentWindow.document.getElementById('toggleButton');
+
+            const textInput1 = document.querySelector("#content-frame").contentWindow.document.getElementById('textInput1');
+            const textInput2 = document.querySelector("#content-frame").contentWindow.document.getElementById('textInput2');
+
+            textInput1.value = layer2State.text1;
+            textInput2.value = layer2State.text2;
 
             if (layer2State.enabled) {
                 layer2.style.display = 'block';
