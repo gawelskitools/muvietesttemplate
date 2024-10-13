@@ -93,4 +93,22 @@
 
     <div class="controls">
         <!-- AN/AUS-Button -->
-        <label for="toggleButton">Layer 2 AN/AUS
+        <label for="toggleButton">Layer 2 AN/AUS:</label>
+        <button id="toggleButton" onclick="toggleLayer2()">Layer 2: AUS</button>
+
+        <!-- DropDown für die Hintergrundfarbe -->
+        <label for="colorSelect">Hintergrundfarbe wählen:</label>
+        <select id="colorSelect" onchange="changeColor(this.value)">
+            <option value="transparent">Transparent</option>
+            <option value="orange">Orange</option>
+            <option value="green">Grün</option>
+            <option value="darkblue">Dunkelblau</option>
+        </select>
+
+        <!-- Textfeld für den zweizeiligen Text -->
+        <label for="textInput">Zweizeiliger Text (max. 60 Zeichen pro Zeile):</label>
+        <textarea id="textInput" rows="2" maxlength="120" oninput="updateText()" placeholder="Gib deinen Text hier ein..."></textarea>
+    </div>
+
+</body>
+</html>
