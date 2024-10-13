@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tab 1 - Vorschau Einstellungen</title>
+    <title>Tab 1 - Layer 1 Einstellungen</title>
     <style>
         .controls {
             margin-top: 10px;
@@ -40,10 +40,10 @@
             const button = document.getElementById('toggleButton');
             if (backgroundEnabled) {
                 button.classList.add('active');
-                button.innerText = 'Hintergrund: AN';
+                button.innerText = 'Layer 1: AN';
             } else {
                 button.classList.remove('active');
-                button.innerText = 'Hintergrund: AUS';
+                button.innerText = 'Layer 1: AUS';
             }
         }
 
@@ -81,8 +81,8 @@
     <!-- Steuerungselemente -->
     <div class="controls">
         <!-- AN/AUS-Button -->
-        <label for="toggleButton">Hintergrund AN/AUS:</label>
-        <button id="toggleButton" onclick="toggleBackground()">Hintergrund: AUS</button>
+        <label for="toggleButton">Layer 1 AN/AUS:</label>
+        <button id="toggleButton" onclick="toggleBackground()">Layer 1: AUS</button>
 
         <!-- DropDown für die Hintergrundfarbe -->
         <label for="colorSelect">Hintergrundfarbe wählen:</label>
