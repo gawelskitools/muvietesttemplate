@@ -20,6 +20,31 @@
             background-color: transparent;
         }
 
+        .layer2 {
+            width: 1280px;
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            background-color: transparent;
+            display: none;
+            padding-left: 300px;
+            box-sizing: border-box;
+        }
+
+        .layer2-text {
+            color: white;
+            font-family: Sans-Serif;
+        }
+
+        .layer2-text .line1 {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .layer2-text .line2 {
+            font-size: 0.7em;
+        }
+
         .tabs {
             width: 1280px;
             display: flex;
@@ -63,6 +88,12 @@
     <!-- Vorschaufenster -->
     <div class="vorschau-container">
         <div id="vorschau" class="vorschau"></div>
+        <div id="layer2" class="layer2">
+            <div class="layer2-text">
+                <div class="line1" id="layer2Line1"></div>
+                <div class="line2" id="layer2Line2"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Tab-Leiste -->
