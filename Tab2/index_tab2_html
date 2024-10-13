@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab 2 - Layer 2 Einstellungen</title>
+    <style>
+        .controls {
+            margin-top: 10px;
+        }
 
+        label, select, input[type="text"], button {
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Standardstil für den AN/AUS-Button */
+        #toggleButton {
+            padding: 10px;
+            border: none;
+            color: white;
+            background-color: red; /* Standardmäßig AUS (rot) */
+            cursor: pointer;
+        }
+
+        #toggleButton.active {
+            background-color: green; /* AN (grün) */
+        }
+
+        /* Stil für den Textbereich im Vorschaufenster */
+        #textInput {
+            width: 600px;
+            height: 40px;
+            resize: none;
+            font-family: 'Sans-Serif';
+        }
+    </style>
+    <script>
+        let layer2Enabled = false; // Standardmäßig ist Layer 2 deaktiviert
+        let currentColor = 'transparent'; // Standardfarbe für den transparenten Hintergrund
+        let currentText = ['', '']; // Aktueller Text in den beiden Zeilen
+
+        // Funktion zur Aktualisierung des AN/AUS-Buttons
+        function updateToggleButton() {
+            const button = document.getElementById('toggleButton');
+            if (layer2Enabled) {
+                button.classList.add('active');
+                button.innerText = 'Layer 2: AN';
+            } else {
+                button.classList.remove('active');
+                button.innerText = 'Layer 2: AUS';
+            }
+        }
+
+        // Funktion zum Ein- und Ausschalten des Layers
+        function toggleLayer2() {
+            layer2Enabled = !layer2Enabled;
+            window.parent.toggleLayer2Background(layer2Enabled); // Layer 2 im übergeordneten Fenster umschalten
+            if (layer2Enabled) {
+                window.parent.changeLayer2Color(currentColor); // Übernimmt die aktuelle Farbe
+                window.parent.updateLayer2Text(currentText[0], currentText[1]); // Übernimmt den aktuellen Text
+            } else {
+                window.parent.clearLayer2(); // Layer 2 wird ausgeblendet
+            }
+            updateToggleButton();
+        }
+
+        // Funktion zum Ändern der Hintergrundfarbe
+        function changeColor(color) {
+            currentColor = color;
+            if (layer2Enabled) {
+                window.parent.changeLayer2Color(currentColor); // Farbe im Vorschaufenster ändern
+            }
+        }
+
+        // Funktion zur Aktualisierung des Texts
+        function updateText() {
+            const text = document.getElementById('textInput').value.split('\n');
+            currentText[0] = text[0] || ''; // Zeile 1
+            currentText[1] = text[1] || ''; // Zeile 2
+            if (layer2Enabled) {
+                window.parent.updateLayer2Text(currentText[0], currentText[1]); // Text im Vorschaufenster aktualisieren
+            }
+        }
+
+        window.onload = function() {
+            updateToggleButton(); // Setzt den AN/AUS-Zustand beim Laden
+        };
+    </script>
+</head>
+<body>
+
+    <!-- Steuerungselemente -->
+    <div class="controls">
+        <!-- AN/AUS-Button -->
+        <label for="toggleButton">Layer 2 AN/AUS:</label>
+        <button id="toggleButton" onclick="toggleLayer2()">Layer 2: AUS</button>
+
+        <!-- DropDown für die Hintergrundfarbe -->
+        <label for="colorSelect">Hintergrundfarbe wählen:</label>
+        <select id="colorSelect" onchange="changeColor(this.value)">
+            <option value="transparent">Transparent</option>
+            <option value="orange">Orange</option>
+            <option value="green">Grün</option>
+            <option value="darkblue">Dunkelblau</option>
+        </select>
+
+        <!-- Textfeld für den zweizeiligen Text -->
+        <label for="textInput">Zweizeiliger Text (max. 60 Zeichen pro Zeile):</label>
+        <textarea id="textInput" rows="2" maxlength="120" oninput="updateText()" placeholder="Gib deinen Text hier ein..."></textarea>
+    </div>
+
+</body>
+</html>
