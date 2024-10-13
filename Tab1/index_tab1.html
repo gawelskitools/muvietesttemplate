@@ -3,23 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tab 1 - Vorschaufenster Einstellungen</title>
+    <title>Tab 1 - Vorschau Einstellungen</title>
     <style>
-        .vorschau-container {
-            width: 100%;
-            height: 300px;
-            border: 2px solid #ccc;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .vorschau {
-            width: 100%;
-            height: 100%;
-            background-color: black; /* Startfarbe */
-            opacity: 1; /* Start-Transparenz */
-        }
-
         .controls {
             margin-top: 10px;
         }
@@ -39,32 +24,22 @@
         let currentOpacity = 1;       // Standard-Deckkraft ist 100%
 
         function toggleBackground() {
-            const vorschau = document.querySelector('.vorschau');
-            backgroundEnabled = !backgroundEnabled; // AN/AUS wechseln
-            vorschau.style.backgroundColor = backgroundEnabled ? currentColor : 'transparent';
+            backgroundEnabled = !backgroundEnabled;
+            window.parent.toggleVorschauBackground(backgroundEnabled); // Steuert das übergeordnete Fenster
         }
 
         function changeColor(color) {
-            const vorschau = document.querySelector('.vorschau');
             currentColor = color;
-            if (backgroundEnabled) {
-                vorschau.style.backgroundColor = currentColor;
-            }
+            window.parent.changeVorschauColor(currentColor); // Steuert die Farbe des übergeordneten Fensters
         }
 
         function changeOpacity(opacity) {
-            const vorschau = document.querySelector('.vorschau');
             currentOpacity = opacity;
-            vorschau.style.opacity = currentOpacity;
+            window.parent.changeVorschauOpacity(currentOpacity); // Steuert die Transparenz des übergeordneten Fensters
         }
     </script>
 </head>
 <body>
-
-    <!-- Vorschaufenster -->
-    <div class="vorschau-container">
-        <div class="vorschau"></div>
-    </div>
 
     <!-- Steuerungselemente -->
     <div class="controls">
