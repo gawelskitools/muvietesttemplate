@@ -97,7 +97,11 @@
         // Diese Funktion wird von "index_tab1.html" aufgerufen, um den Hintergrund AN/AUS zu schalten
         function toggleVorschauBackground(enable) {
             const vorschau = document.getElementById('vorschau');
-            vorschau.style.backgroundColor = enable ? vorschau.style.backgroundColor : 'transparent';
+            if (enable) {
+                vorschau.style.backgroundColor = vorschau.style.backgroundColor || 'black'; // Wenn noch keine Farbe gesetzt ist, schwarz verwenden
+            } else {
+                vorschau.style.backgroundColor = 'transparent';
+            }
         }
     </script>
 
