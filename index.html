@@ -67,13 +67,33 @@
 
     <!-- Tab-Leiste -->
     <div class="tabs">
-        <div id="tab1" class="tab"><a href="Tab1/index_tab1.html" target="content-frame">Tab1 (Layer 1)</a></div>
-        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame">Tab2 (Layer 2)</a></div>
+        <div id="tab1" class="tab active-tab"><a href="Tab1/index_tab1.html" target="content-frame" onclick="switchTab(event, 'tab1')">Tab1 (Layer 1)</a></div>
+        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame" onclick="switchTab(event, 'tab2')">Tab2 (Layer 2)</a></div>
     </div>
 
     <!-- iFrame für den Tab-Inhalt -->
-    <iframe name="content-frame" src="Tab1/index_tab1.html"></iframe>
-     <iframe name="content-frame" src="Tab2/index_tab2.html"></iframe>
+    <iframe name="content-frame" id="content-frame" src="Tab1/index_tab1.html"></iframe>
+
+    <script>
+        function switchTab(event, tabId) {
+            event.preventDefault();  // Verhindert das Standardverhalten des Links
+            const frame = document.getElementById('content-frame');
+            const tabs = document.querySelectorAll('.tab');
+
+            // Entferne die aktive Klasse von allen Tabs
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+
+            // Füge die aktive Klasse zum angeklickten Tab hinzu
+            event.currentTarget.parentNode.classList.add('active-tab');
+
+            // Ändere den src des iFrames je nach Tab
+            if (tabId === 'tab1') {
+                frame.src = 'Tab1/index_tab1.html';
+            } else if (tabId === 'tab2') {
+                frame.src = 'Tab2/index_tab2.html';
+            }
+        }
+    </script>
 
 </body>
 </html>
