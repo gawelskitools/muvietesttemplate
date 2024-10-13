@@ -9,35 +9,32 @@
             margin-top: 10px;
         }
 
-        label, select, input[type="text"], button, textarea {
+        label, select, textarea, button {
             display: block;
             margin: 10px 0;
         }
 
-        /* Standardstil für den AN/AUS-Button */
         #toggleButton {
             padding: 10px;
             border: none;
             color: white;
-            background-color: red; /* Standardmäßig AUS (rot) */
+            background-color: red;
             cursor: pointer;
         }
 
         #toggleButton.active {
-            background-color: green; /* AN (grün) */
+            background-color: green;
         }
 
-        /* Stil für den Textbereich im Vorschaufenster */
-        #textInput {
+        textarea {
             width: 600px;
-            resize: none;
             font-family: 'Sans-Serif';
         }
     </style>
     <script>
-        let layer2Enabled = false; // Standardmäßig ist Layer 2 deaktiviert
-        let currentColor = 'transparent'; // Standardfarbe für den transparenten Hintergrund
-        let currentText = ['', '']; // Aktueller Text in den beiden Zeilen
+        let layer2Enabled = false;
+        let currentColor = 'transparent';
+        let currentText = ['', ''];
 
         function updateToggleButton() {
             const button = document.getElementById('toggleButton');
@@ -52,12 +49,13 @@
 
         function toggleLayer2() {
             layer2Enabled = !layer2Enabled;
-            window.parent.toggleLayer2Background(layer2Enabled); // Layer 2 im übergeordneten Fenster umschalten
+            const layer2 = window.parent.document.getElementById('layer2');
             if (layer2Enabled) {
-                window.parent.changeLayer2Color(currentColor); // Übernimmt die aktuelle Farbe
-                window.parent.updateLayer2Text(currentText[0], currentText[1]); // Übernimmt den aktuellen Text
+                layer2.style.display = 'block';
+                layer2.style.backgroundColor = currentColor;
+                updateLayer2Text(currentText[0], currentText[1]);
             } else {
-                window.parent.clearLayer2(); // Layer 2 wird ausgeblendet
+                layer2.style.display = 'none';
             }
             updateToggleButton();
         }
@@ -65,45 +63,34 @@
         function changeColor(color) {
             currentColor = color;
             if (layer2Enabled) {
-                window.parent.changeLayer2Color(currentColor); // Farbe im Vorschaufenster ändern
+                const layer2 = window.parent.document.getElementById('layer2');
+                layer2.style.backgroundColor = currentColor;
             }
         }
 
         function updateText() {
             const text = document.getElementById('textInput').value.split('\n');
-            currentText[0] = text[0] || ''; // Zeile 1
-            currentText[1] = text[1] || ''; // Zeile 2
+            currentText[0] = text[0] || '';
+            currentText[1] = text[1] || '';
             if (layer2Enabled) {
-                window.parent.updateLayer2Text(currentText[0], currentText[1]); // Text im Vorschaufenster aktualisieren
+                updateLayer2Text(currentText[0], currentText[1]);
             }
         }
 
+        function updateLayer2Text(line1, line2) {
+            const layer2Line1 = window.parent.document.getElementById('layer2Line1');
+            const layer2Line2 = window.parent.document.getElementById('layer2Line2');
+            layer2Line1.textContent = line1;
+            layer2Line2.textContent = line2;
+        }
+
         window.onload = function() {
-            updateToggleButton(); // Setzt den AN/AUS-Zustand beim Laden
+            updateToggleButton();
         };
     </script>
 </head>
 <body>
 
-    <!-- Steuerungselemente -->
     <div class="controls">
         <!-- AN/AUS-Button -->
-        <label for="toggleButton">Layer 2 AN/AUS:</label>
-        <button id="toggleButton" onclick="toggleLayer2()">Layer 2: AUS</button>
-
-        <!-- DropDown für die Hintergrundfarbe -->
-        <label for="colorSelect">Hintergrundfarbe wählen:</label>
-        <select id="colorSelect" onchange="changeColor(this.value)">
-            <option value="transparent">Transparent</option>
-            <option value="orange">Orange</option>
-            <option value="green">Grün</option>
-            <option value="darkblue">Dunkelblau</option>
-        </select>
-
-        <!-- Textfeld für den zweizeiligen Text -->
-        <label for="textInput">Zweizeiliger Text (max. 60 Zeichen pro Zeile):</label>
-        <textarea id="textInput" rows="2" maxlength="120" oninput="updateText()" placeholder="Gib deinen Text hier ein..."></textarea>
-    </div>
-
-</body>
-</html>
+        <label for="toggleButton">Layer 2 AN/AUS
