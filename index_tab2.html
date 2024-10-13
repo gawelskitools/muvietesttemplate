@@ -30,6 +30,26 @@
             width: 600px;
             font-family: 'Sans-Serif';
         }
+
+        .counter {
+            font-size: 0.8em;
+            color: #fff;
+        }
+
+        /* Stil für die Überschrift */
+        .headline {
+            font-family: 'Sans-Serif';
+            font-weight: bold;
+            color: white;
+            font-size: 1em;
+        }
+
+        /* Stil für die Kobi-Überschrift */
+        .subheadline {
+            font-family: 'Sans-Serif';
+            color: white;
+            font-size: 0.7em;
+        }
     </style>
     <script>
         let layer2Enabled = false;
@@ -64,9 +84,12 @@
         }
 
         function updateText() {
-            const text = document.getElementById('textInput').value.split('\n');
-            currentText[0] = text[0] || '';
-            currentText[1] = text[1] || '';
+            const text1 = document.getElementById('textInput1').value;
+            const text2 = document.getElementById('textInput2').value;
+            currentText[0] = text1 || '';
+            currentText[1] = text2 || '';
+            document.getElementById('counter1').textContent = `${text1.length}/60`;
+            document.getElementById('counter2').textContent = `${text2.length}/60`;
             if (layer2Enabled) {
                 window.parent.updateLayer2(currentText[0], currentText[1]);
             }
@@ -93,9 +116,15 @@
             <option value="darkblue">Dunkelblau</option>
         </select>
 
-        <!-- Textfeld für den zweizeiligen Text -->
-        <label for="textInput">Zweizeiliger Text (max. 60 Zeichen pro Zeile):</label>
-        <textarea id="textInput" rows="2" maxlength="120" oninput="updateText()" placeholder="Gib deinen Text hier ein..."></textarea>
+        <!-- Textfeld 1 für die Überschrift -->
+        <label for="textInput1" class="headline">Überschrift:</label>
+        <textarea id="textInput1" rows="2" maxlength="60" oninput="updateText()" placeholder="Gib deine Überschrift hier ein..."></textarea>
+        <span id="counter1" class="counter">0/60</span>
+
+        <!-- Textfeld 2 für die Kobi-Überschrift -->
+        <label for="textInput2" class="subheadline">Kobi-Überschrift:</label>
+        <textarea id="textInput2" rows="2" maxlength="60" oninput="updateText()" placeholder="Gib deine Kobi-Überschrift hier ein..."></textarea>
+        <span id="counter2" class="counter">0/60</span>
     </div>
 
 </body>
