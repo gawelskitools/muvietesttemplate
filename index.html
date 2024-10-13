@@ -7,62 +7,28 @@
     <style>
         /* Stil für das Vorschaufenster */
         .vorschau-container {
-            width: 1280px; /* Feste Breite */
-            height: 720px; /* Feste Höhe */
+            width: 1280px;
+            height: 720px;
             border: 2px solid #ccc;
             margin-bottom: 20px;
             position: relative;
-            background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), 
-                              linear-gradient(135deg, #ccc 25%, transparent 25%), 
-                              linear-gradient(45deg, transparent 75%, #ccc 75%), 
-                              linear-gradient(135deg, transparent 75%, #ccc 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 0, 10px -10px, 0px 10px; /* Kariertes Muster */
         }
 
         .vorschau {
             width: 100%;
             height: 100%;
-            background-color: transparent; /* Standardmäßig transparent */
-            opacity: 1; /* Standard-Deckkraft */
+            background-color: transparent;
         }
 
-        /* Layer 2 für den transparenten Hintergrund unten */
-        .layer2 {
-            width: 1280px;
-            height: 50px;
-            position: absolute;
-            bottom: 0;
-            background-color: transparent; /* Standardfarbe */
-            display: none;
-            padding-left: 300px;
-            box-sizing: border-box;
-        }
-
-        .layer2-text {
-            color: white;
-            font-family: Sans-Serif;
-        }
-
-        .layer2-text .line1 {
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        .layer2-text .line2 {
-            font-size: 0.7em;
-        }
-
-        /* Stil für die Tabs */
         .tabs {
-            width: 1280px; /* Gleiche Breite wie das Vorschaufenster */
+            width: 1280px;
             display: flex;
-            justify-content: space-evenly; /* Tabs gleichmäßig verteilen */
+            justify-content: space-evenly;
             border-bottom: 2px solid #ccc;
         }
 
         .tab {
-            flex: 1; /* Alle Tabs haben die gleiche Breite */
+            flex: 1;
             padding: 10px 0;
             text-align: center;
             cursor: pointer;
@@ -79,7 +45,6 @@
             border-bottom: none;
         }
 
-        /* Stil für den Link innerhalb der Tabs */
         .tab a {
             text-decoration: none;
             color: #000;
@@ -98,12 +63,6 @@
     <!-- Vorschaufenster -->
     <div class="vorschau-container">
         <div id="vorschau" class="vorschau"></div>
-        <div id="layer2" class="layer2">
-            <div class="layer2-text">
-                <div class="line1" id="layer2Line1"></div>
-                <div class="line2" id="layer2Line2"></div>
-            </div>
-        </div>
     </div>
 
     <!-- Tab-Leiste -->
@@ -114,50 +73,6 @@
 
     <!-- iFrame für den Tab-Inhalt -->
     <iframe name="content-frame" src="Tab1/index_tab1.html"></iframe>
-
-    <script>
-        // Layer 1 Funktionen (Tab1)
-        function changeVorschauColor(color) {
-            document.getElementById('vorschau').style.backgroundColor = color;
-        }
-
-        function changeVorschauOpacity(opacity) {
-            document.getElementById('vorschau').style.opacity = opacity;
-        }
-
-        function toggleVorschauBackground(enable) {
-            const vorschau = document.getElementById('vorschau');
-            if (enable) {
-                vorschau.style.backgroundColor = vorschau.style.backgroundColor || 'black'; // Wenn noch keine Farbe gesetzt ist, schwarz verwenden
-            } else {
-                vorschau.style.backgroundColor = 'transparent';
-            }
-        }
-
-        // Layer 2 Funktionen (Tab2)
-        let layer2Element = document.getElementById('layer2');
-        let layer2Line1 = document.getElementById('layer2Line1');
-        let layer2Line2 = document.getElementById('layer2Line2');
-
-        function toggleLayer2Background(enable) {
-            layer2Element.style.display = enable ? 'block' : 'none';
-        }
-
-        function changeLayer2Color(color) {
-            layer2Element.style.backgroundColor = color;
-        }
-
-        function updateLayer2Text(line1, line2) {
-            layer2Line1.textContent = line1;
-            layer2Line2.textContent = line2;
-        }
-
-        function clearLayer2() {
-            layer2Line1.textContent = '';
-            layer2Line2.textContent = '';
-            layer2Element.style.backgroundColor = 'transparent';
-        }
-    </script>
 
 </body>
 </html>
