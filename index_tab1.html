@@ -45,7 +45,10 @@
 
         function toggleBackground() {
             backgroundEnabled = !backgroundEnabled;
-            window.parent.updateLayer1(backgroundEnabled ? currentColor : 'transparent', currentOpacity);
+            window.parent.toggleLayer1Visibility(backgroundEnabled);
+            if (backgroundEnabled) {
+                window.parent.updateLayer1(currentColor, currentOpacity);
+            }
             updateToggleButton();
         }
 
