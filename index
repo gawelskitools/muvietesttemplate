@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorschaufenster mit transparentem Hintergrund</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .preview-container {
+            width: 720px;
+            height: 405px;
+            position: relative;
+            border: 1px solid #ccc;
+            background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), 
+                              linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
+            background-size: 20px 20px;
+        }
+
+        .preview-content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vorschaufenster</h1>
+    <div class="preview-container">
+        <div class="preview-content">
+            <!-- Inhalt des Vorschaufensters kann hier hinzugefügt werden -->
+        </div>
+    </div>
+
+</body>
+</html>
