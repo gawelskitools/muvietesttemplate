@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorschaufenster mit Layern, Textfeld und Swoosh</title>
+    <title>Vorschaufenster mit Layern, Textfeld, Swoosh und Logos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
             background-color: transparent;
             background-size: 40px 40px;
             margin-bottom: 20px;
-            overflow: hidden; /* Wichtig, um den Swoosh auf die Fläche zu beschränken */
+            overflow: hidden;
         }
 
         .layer {
@@ -41,23 +41,33 @@
             bottom: 0;
             display: flex;
             align-items: center;
-            padding-left: 150px; /* Text 100px eingerückt */
+            padding-left: 100px;
             font-family: sans-serif;
             font-weight: bold;
             font-size: 1.5em;
             color: white;
         }
 
-        /* Swoosh-Linie */
         .swoosh {
             position: absolute;
-            bottom: 70px; /* Positioniert am unteren Rand des Vorschaufensters */
-            width: 575px;
-            height: 5px; /* Dicke der Linie reduziert auf 5px */
+            bottom: 70px;
+            width: 350px;
+            height: 5px;
             background-color: white;
-            z-index: 3; /* Über Layer 2 */
-            border-radius: 5px; /* Abgerundete Enden */
-            display: none; /* Standardmäßig unsichtbar */
+            z-index: 3;
+            border-radius: 5px;
+            display: none;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100px;
+            height: auto;
+            display: none;
+            z-index: 4;
         }
 
         .areas-container {
@@ -115,7 +125,6 @@
             margin-bottom: 10px;
         }
 
-        /* Swoosh Geschwindigkeit Slider */
         .slider-group {
             text-align: center;
             margin-bottom: 10px;
@@ -145,6 +154,9 @@
 
         <!-- Swoosh-Linie -->
         <div class="swoosh" id="swoosh"></div>
+
+        <!-- Logo-Container -->
+        <img src="" alt="Logo" id="logo" class="logo">
     </div>
 
     <div class="areas-container">
@@ -194,9 +206,9 @@
                 </div>
 
                 <div class="text-group">
-                    <label for="textInput">Insert-Text (max. 45 Zeichen):</label><br>
-                    <input type="text" id="textInput" maxlength="45" placeholder="Text eingeben...">
-                    <div class="char-counter"><span id="charCount">0</span>/45 Zeichen</div>
+                    <label for="textInput">Insert-Text (max. 75 Zeichen):</label><br>
+                    <input type="text" id="textInput" maxlength="75" placeholder="Text eingeben...">
+                    <div class="char-counter"><span id="charCount">0</span>/75 Zeichen</div>
                 </div>
             </div>
         </div>
@@ -212,18 +224,34 @@
 
                 <!-- Slider für Swoosh-Geschwindigkeit -->
                 <div class="slider-group">
-                    <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">10%</span></div>
-                    <input type="range" id="swooshSpeedSlider" min="1" max="100" value="10">
+                    <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">50%</span></div>
+                    <input type="range" id="swooshSpeedSlider" min="1" max="100" value="50">
                 </div>
             </div>
         </div>
 
-        <!-- Weitere Bereiche (Area4 bis Area6) -->
+        <!-- Area4 -->
         <div id="area4" class="area">
             <div class="area-header">area4 (Layer 4)</div>
-            <div class="area-content"></div>
+            <div class="area-content">
+                <div class="button-group">
+                    <button id="buttonOn4">An</button>
+                    <button id="buttonOff4" class="button-active">Aus</button>
+                </div>
+
+                <div class="dropdown-group">
+                    <label for="brandSelect4">Marke wählen:</label>
+                    <select id="brandSelect4">
+                        <option value="default">-- Wähle Marke --</option>
+                        <option value="A">Marke A</option>
+                        <option value="B">Marke B</option>
+                        <option value="C">Marke C</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
+        <!-- Weitere Bereiche (Area5 bis Area6) -->
         <div id="area5" class="area">
             <div class="area-header">area5 (Layer 5)</div>
             <div class="area-content"></div>
@@ -354,7 +382,7 @@
             layer2.textContent = textInput.value; // Zeige aktuellen Text im Layer
         }
 
-        // Layer 3 Steuerung (Area3) und Swoosh Geschwindigkeit Slider
+        // Layer 3 Steuerung (Area3) und Swoosh Steuerung
         const buttonOn3 = document.getElementById('buttonOn3');
         const buttonOff3 = document.getElementById('buttonOff3');
         const swooshSpeedSlider = document.getElementById('swooshSpeedSlider');
@@ -363,7 +391,7 @@
 
         let isOn3 = false;
         let swooshInterval;
-        let swooshSpeed = 10; // Standardwert: 10%
+        let swooshSpeed = 50;
 
         buttonOn3.addEventListener('click', () => {
             isOn3 = true;
@@ -377,27 +405,26 @@
             buttonOff3.classList.add('button-active');
             buttonOn3.classList.remove('button-active');
             clearInterval(swooshInterval);
-            swoosh.style.display = 'none'; // Swoosh entfernen
+            swoosh.style.display = 'none';
         });
 
         swooshSpeedSlider.addEventListener('input', () => {
             swooshSpeed = swooshSpeedSlider.value;
             swooshSpeedValue.textContent = swooshSpeed + '%';
             if (isOn3) {
-                startSwooshAnimation(); // Aktualisiere die Swoosh-Geschwindigkeit
+                startSwooshAnimation();
             }
         });
 
         function startSwooshAnimation() {
-            clearInterval(swooshInterval); // Beende vorherige Animation
+            clearInterval(swooshInterval);
             swoosh.style.display = 'block';
             let swooshPosition = 720;
 
             function swooshMove() {
-                // Geschwindigkeit: Schneller zu Beginn, langsamer in der Mitte, dann wieder schneller am Ende
                 if (swooshPosition > 480) {
                     swooshPosition -= 30; // Schneller Start
-                } else if (swooshPosition > 140) {
+                } else if (swooshPosition > 240) {
                     swooshPosition -= 10; // Langsamer in der Mitte
                 } else {
                     swooshPosition -= 30; // Schneller Ausgang
@@ -405,15 +432,67 @@
 
                 swoosh.style.left = swooshPosition + 'px';
 
-                if (swooshPosition < -550) {
-                    swooshPosition = 1280;
-                    clearInterval(swooshInterval); // Beende die aktuelle Runde
-                    setTimeout(startSwooshAnimation, 2000); // Verzögerung von 500ms vor erneutem Start
+                if (swooshPosition < -350) {
+                    swooshPosition = 720;
+                    clearInterval(swooshInterval);
+                    setTimeout(startSwooshAnimation, 500); // Verzögerung
                 }
             }
 
-            swooshInterval = setInterval(swooshMove, 600 / swooshSpeed); // Geschwindigkeit basierend auf Sliderwert und max. Geschwindigkeit reduziert
+            swooshInterval = setInterval(swooshMove, 600 / swooshSpeed);
         }
+
+        // Layer 4 Steuerung (Area4) und Logo-Anzeige
+        const buttonOn4 = document.getElementById('buttonOn4');
+        const buttonOff4 = document.getElementById('buttonOff4');
+        const brandSelect4 = document.getElementById('brandSelect4');
+        const logo = document.getElementById('logo');
+
+        let isOn4 = false;
+
+        buttonOn4.addEventListener('click', () => {
+            isOn4 = true;
+            buttonOn4.classList.add('button-active');
+            buttonOff4.classList.remove('button-active');
+            updateLogo();
+        });
+
+        buttonOff4.addEventListener('click', () => {
+            isOn4 = false;
+            buttonOff4.classList.add('button-active');
+            buttonOn4.classList.remove('button-active');
+            logo.style.display = 'none';
+        });
+
+        brandSelect4.addEventListener('change', () => {
+            if (isOn4) {
+                updateLogo();
+            }
+        });
+
+        function updateLogo() {
+            const selectedBrand = brandSelect4.value;
+            switch (selectedBrand) {
+                case 'A':
+                    logo.src = 'MarkeALogo.png';
+                    break;
+                case 'B':
+                    logo.src = 'MarkeBLogo.png';
+                    break;
+                case 'C':
+                    logo.src = 'MarkeCLogo.png';
+                    break;
+                default:
+                    logo.src = '';
+            }
+
+            if (logo.src) {
+                logo.style.display = 'block';
+            } else {
+                logo.style.display = 'none';
+            }
+        }
+
     </script>
 
 </body>
