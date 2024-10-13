@@ -7,6 +7,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .preview-container {
@@ -14,9 +20,11 @@
             height: 405px;
             position: relative;
             border: 1px solid #ccc;
-            background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), 
-                              linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
-            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
+                linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
         }
 
         .preview-content {
@@ -30,7 +38,6 @@
 </head>
 <body>
 
-    <h1>Vorschaufenster</h1>
     <div class="preview-container">
         <div class="preview-content">
             <!-- Inhalt des Vorschaufensters kann hier hinzugefügt werden -->
