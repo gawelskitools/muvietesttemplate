@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorschaufenster mit Tabs</title>
+    <title>Vorschaufenster mit dynamischen Tabs</title>
     <style>
         /* Stil für das Vorschaufenster */
         .vorschau-container {
@@ -53,23 +53,66 @@
             color: #000;
         }
     </style>
+    <script>
+        // JavaScript-Funktion zum Laden der Inhalte
+        function loadContent(tabId) {
+            const vorschau = document.querySelector('.vorschau');
+            let content = '';
+
+            switch (tabId) {
+                case 'tab1':
+                    content = 'Inhalt von index_tab1_html';
+                    break;
+                case 'tab2':
+                    content = 'Inhalt von index_tab2_html';
+                    break;
+                case 'tab3':
+                    content = 'Inhalt von index_tab3_html';
+                    break;
+                case 'tab4':
+                    content = 'Inhalt von index_tab4_html';
+                    break;
+                case 'tab5':
+                    content = 'Inhalt von index_tab5_html';
+                    break;
+                default:
+                    content = 'Wähle einen Tab aus';
+            }
+
+            // Aktualisiere den Vorschauinhalt
+            vorschau.innerHTML = `<p>${content}</p>`;
+
+            // Entferne die aktive Klasse von allen Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active-tab');
+            });
+
+            // Füge die aktive Klasse zum ausgewählten Tab hinzu
+            document.getElementById(tabId).classList.add('active-tab');
+        }
+
+        // Standardmäßiges Laden des Inhalts für Tab1
+        window.onload = function() {
+            loadContent('tab1');
+        };
+    </script>
 </head>
 <body>
 
     <!-- Vorschaufenster ohne Hintergrund -->
     <div class="vorschau-container">
         <div class="vorschau">
-            <p>Vorschau-Inhalt hier</p>
+            <!-- Dynamischer Inhalt wird hier angezeigt -->
         </div>
     </div>
 
     <!-- Tab-Leiste -->
     <div class="tabs">
-        <div class="tab active-tab"><a href="tab1.html">Tab1</a></div>
-        <div class="tab"><a href="tab2.html">Tab2</a></div>
-        <div class="tab"><a href="tab3.html">Tab3</a></div>
-        <div class="tab"><a href="tab4.html">Tab4</a></div>
-        <div class="tab"><a href="tab5.html">Tab5</a></div>
+        <div id="tab1" class="tab active-tab" onclick="loadContent('tab1')">Tab1</div>
+        <div id="tab2" class="tab" onclick="loadContent('tab2')">Tab2</div>
+        <div id="tab3" class="tab" onclick="loadContent('tab3')">Tab3</div>
+        <div id="tab4" class="tab" onclick="loadContent('tab4')">Tab4</div>
+        <div id="tab5" class="tab" onclick="loadContent('tab5')">Tab5</div>
     </div>
 
 </body>
