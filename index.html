@@ -108,39 +108,50 @@
 
     <!-- Tab-Leiste -->
     <div class="tabs">
-        <div id="tab1" class="tab active-tab"><a href="Tab1/index_tab1.html" target="content-frame">Tab1</a></div>
-        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame">Tab2</a></div>
-        <div id="tab3" class="tab"><a href="Tab3/index_tab3.html" target="content-frame">Tab3</a></div>
-        <div id="tab4" class="tab"><a href="Tab4/index_tab4.html" target="content-frame">Tab4</a></div>
-        <div id="tab5" class="tab"><a href="Tab5/index_tab5.html" target="content-frame">Tab5</a></div>
+        <div id="tab1" class="tab"><a href="Tab1/index_tab1.html" target="content-frame">Tab1 (Layer 1)</a></div>
+        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame">Tab2 (Layer 2)</a></div>
     </div>
 
     <!-- iFrame für den Tab-Inhalt -->
     <iframe name="content-frame" src="Tab1/index_tab1.html"></iframe>
 
     <script>
-        // Layer 2 Steuerung
+        // Layer 1 Funktionen (Tab1)
+        function changeVorschauColor(color) {
+            document.getElementById('vorschau').style.backgroundColor = color;
+        }
+
+        function changeVorschauOpacity(opacity) {
+            document.getElementById('vorschau').style.opacity = opacity;
+        }
+
+        function toggleVorschauBackground(enable) {
+            const vorschau = document.getElementById('vorschau');
+            if (enable) {
+                vorschau.style.backgroundColor = vorschau.style.backgroundColor || 'black'; // Wenn noch keine Farbe gesetzt ist, schwarz verwenden
+            } else {
+                vorschau.style.backgroundColor = 'transparent';
+            }
+        }
+
+        // Layer 2 Funktionen (Tab2)
         let layer2Element = document.getElementById('layer2');
         let layer2Line1 = document.getElementById('layer2Line1');
         let layer2Line2 = document.getElementById('layer2Line2');
 
-        // Funktion zum Ein-/Ausschalten von Layer 2
         function toggleLayer2Background(enable) {
             layer2Element.style.display = enable ? 'block' : 'none';
         }
 
-        // Funktion zum Ändern der Hintergrundfarbe von Layer 2
         function changeLayer2Color(color) {
             layer2Element.style.backgroundColor = color;
         }
 
-        // Funktion zur Aktualisierung des Textes in Layer 2
         function updateLayer2Text(line1, line2) {
             layer2Line1.textContent = line1;
             layer2Line2.textContent = line2;
         }
 
-        // Funktion zum Löschen des Textes und Setzen auf transparent, wenn Layer 2 deaktiviert ist
         function clearLayer2() {
             layer2Line1.textContent = '';
             layer2Line2.textContent = '';
