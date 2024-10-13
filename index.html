@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorschaufenster mit transparentem Hintergrund</title>
+    <title>Vorschaufenster und Bereiche</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            align-items: flex-start;
+            flex-direction: column;
+            margin: 20px;
         }
 
         .preview-container {
             width: 720px;
             height: 405px;
             position: relative;
-            border: 1px solid #ccc;
+            border: 2px solid black; /* Schwarze Linie mit Dicke 2px */
             background-image: 
                 linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
                 linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
+            margin-bottom: 20px;
         }
 
         .preview-content {
@@ -34,6 +35,23 @@
             top: 0;
             left: 0;
         }
+
+        .areas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Zentriert die Bereiche */
+            width: 750px;
+            margin: 0 auto; /* Zentriert den gesamten Container */
+        }
+
+        .area {
+            width: 240px;
+            height: 240px;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+            margin: 5px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +60,15 @@
         <div class="preview-content">
             <!-- Inhalt des Vorschaufensters kann hier hinzugefügt werden -->
         </div>
+    </div>
+
+    <div class="areas-container">
+        <div id="area1" class="area"></div>
+        <div id="area2" class="area"></div>
+        <div id="area3" class="area"></div>
+        <div id="area4" class="area"></div>
+        <div id="area5" class="area"></div>
+        <div id="area6" class="area"></div>
     </div>
 
 </body>
