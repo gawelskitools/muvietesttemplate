@@ -51,6 +51,26 @@
             background-color: #e0e0e0;
             margin: 5px;
             box-sizing: border-box;
+            font-family: Arial;
+            font-size: 0.7em; /* Schriftart Arial mit 0.7em */
+            position: relative;
+        }
+
+        .area-header {
+            background-color: #333; /* Dunkelgrauer Bereich */
+            color: white;
+            font-weight: bold; /* Fettgedruckter Text */
+            font-size: 1em; /* Schriftgröße 1em */
+            height: 20px;
+            line-height: 20px; /* Vertikale Zentrierung des Textes */
+            text-align: center; /* Zentrierung des Textes */
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .area-content {
+            padding-top: 25px; /* Platz für die Beschriftung */
         }
     </style>
 </head>
@@ -63,12 +83,42 @@
     </div>
 
     <div class="areas-container">
-        <div id="area1" class="area"></div>
-        <div id="area2" class="area"></div>
-        <div id="area3" class="area"></div>
-        <div id="area4" class="area"></div>
-        <div id="area5" class="area"></div>
-        <div id="area6" class="area"></div>
+        <div id="area1" class="area">
+            <div class="area-header">area1</div>
+            <div class="area-content">
+                <!-- Inhalt für area1 -->
+            </div>
+        </div>
+        <div id="area2" class="area">
+            <div class="area-header">area2</div>
+            <div class="area-content">
+                <!-- Inhalt für area2 -->
+            </div>
+        </div>
+        <div id="area3" class="area">
+            <div class="area-header">area3</div>
+            <div class="area-content">
+                <!-- Inhalt für area3 -->
+            </div>
+        </div>
+        <div id="area4" class="area">
+            <div class="area-header">area4</div>
+            <div class="area-content">
+                <!-- Inhalt für area4 -->
+            </div>
+        </div>
+        <div id="area5" class="area">
+            <div class="area-header">area5</div>
+            <div class="area-content">
+                <!-- Inhalt für area5 -->
+            </div>
+        </div>
+        <div id="area6" class="area">
+            <div class="area-header">area6</div>
+            <div class="area-content">
+                <!-- Inhalt für area6 -->
+            </div>
+        </div>
     </div>
 
 </body>
