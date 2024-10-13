@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorschaufenster und Bereiche</title>
+    <title>Vorschaufenster mit Layern</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,10 +25,20 @@
             margin-bottom: 20px;
         }
 
-        .preview-content {
+        .layer {
             width: 100%;
             height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
+
+        .layer1 { z-index: 1; }
+        .layer2 { z-index: 2; }
+        .layer3 { z-index: 3; }
+        .layer4 { z-index: 4; }
+        .layer5 { z-index: 5; }
+        .layer6 { z-index: 6; }
 
         .areas-container {
             display: flex;
@@ -108,13 +118,19 @@
 <body>
 
     <div class="preview-container">
-        <div class="preview-content" id="previewWindow"></div>
+        <!-- Layer 1 bis Layer 6 werden hier übereinander gestapelt -->
+        <div class="layer layer1" id="layer1"></div>
+        <div class="layer layer2" id="layer2"></div>
+        <div class="layer layer3" id="layer3"></div>
+        <div class="layer layer4" id="layer4"></div>
+        <div class="layer layer5" id="layer5"></div>
+        <div class="layer layer6" id="layer6"></div>
     </div>
 
     <div class="areas-container">
         <!-- Area1 -->
         <div id="area1" class="area">
-            <div class="area-header">area1</div>
+            <div class="area-header">area1 (Layer 1)</div>
             <div class="area-content">
                 <div class="button-group">
                     <button id="buttonOn">An</button>
@@ -138,29 +154,29 @@
             </div>
         </div>
 
-        <!-- Weitere Bereiche bleiben unverändert -->
+        <!-- Weitere Bereiche (Area2 bis Area6) -->
         <div id="area2" class="area">
-            <div class="area-header">area2</div>
+            <div class="area-header">area2 (Layer 2)</div>
             <div class="area-content"></div>
         </div>
 
         <div id="area3" class="area">
-            <div class="area-header">area3</div>
+            <div class="area-header">area3 (Layer 3)</div>
             <div class="area-content"></div>
         </div>
 
         <div id="area4" class="area">
-            <div class="area-header">area4</div>
+            <div class="area-header">area4 (Layer 4)</div>
             <div class="area-content"></div>
         </div>
 
         <div id="area5" class="area">
-            <div class="area-header">area5</div>
+            <div class="area-header">area5 (Layer 5)</div>
             <div class="area-content"></div>
         </div>
 
         <div id="area6" class="area">
-            <div class="area-header">area6</div>
+            <div class="area-header">area6 (Layer 6)</div>
             <div class="area-content"></div>
         </div>
     </div>
@@ -168,12 +184,12 @@
     <script>
         const buttonOn = document.getElementById('buttonOn');
         const buttonOff = document.getElementById('buttonOff');
-        const previewWindow = document.getElementById('previewWindow');
+        const layer1 = document.getElementById('layer1'); // Layer 1 für Area1
         const brandSelect = document.getElementById('brandSelect');
         const transparencySlider = document.getElementById('transparencySlider');
         const sliderValue = document.getElementById('sliderValue');
 
-        let isOn = false; // Steuerung, ob die Vorschau aktiv ist oder nicht
+        let isOn = false;
         let currentBackgroundColor = 'transparent';
         let currentTransparency = 1;
 
@@ -183,38 +199,38 @@
 
         // Buttons "An" und "Aus" Logik
         buttonOn.addEventListener('click', () => {
-            isOn = true; // Vorschau aktivieren
+            isOn = true;
             buttonOn.classList.add('button-active');
             buttonOff.classList.remove('button-active');
-            updatePreview(); // Vorschau basierend auf den aktuellen Werten aktualisieren
+            updateLayer1(); // Vorschau von Layer 1 basierend auf den aktuellen Werten aktualisieren
         });
 
         buttonOff.addEventListener('click', () => {
-            isOn = false; // Vorschau deaktivieren
+            isOn = false;
             buttonOff.classList.add('button-active');
             buttonOn.classList.remove('button-active');
-            previewWindow.style.backgroundColor = 'transparent'; // Vorschau im Vorschaufenster deaktivieren
+            layer1.style.backgroundColor = 'transparent'; // Layer 1 im Vorschaufenster deaktivieren
         });
 
         // Dropdown-Menü zur Auswahl der Marke
         brandSelect.addEventListener('change', () => {
-            selectedBrand = brandSelect.value; // Marke speichern
+            selectedBrand = brandSelect.value;
             if (isOn) {
-                updatePreview(); // Vorschau nur aktualisieren, wenn "An" aktiv ist
+                updateLayer1(); // Layer 1 nur aktualisieren, wenn "An" aktiv ist
             }
         });
 
         // Schieberegler für Transparenz
         transparencySlider.addEventListener('input', () => {
-            transparencyValue = transparencySlider.value; // Transparenz speichern
+            transparencyValue = transparencySlider.value;
             sliderValue.textContent = transparencyValue + '%';
             if (isOn) {
-                updatePreview(); // Vorschau nur aktualisieren, wenn "An" aktiv ist
+                updateLayer1(); // Layer 1 nur aktualisieren, wenn "An" aktiv ist
             }
         });
 
-        // Aktualisiert das Vorschaufenster basierend auf den aktuellen Werten
-        function updatePreview() {
+        // Aktualisiert Layer 1 basierend auf den aktuellen Werten
+        function updateLayer1() {
             switch (selectedBrand) {
                 case 'A':
                     currentBackgroundColor = 'purple';
@@ -228,8 +244,8 @@
                 default:
                     currentBackgroundColor = 'transparent';
             }
-            previewWindow.style.backgroundColor = currentBackgroundColor;
-            previewWindow.style.opacity = transparencyValue / 100;
+            layer1.style.backgroundColor = currentBackgroundColor;
+            layer1.style.opacity = transparencyValue / 100;
         }
     </script>
 
