@@ -173,4 +173,65 @@
         const transparencySlider = document.getElementById('transparencySlider');
         const sliderValue = document.getElementById('sliderValue');
 
-        let is
+        let isOn = false; // Steuerung, ob die Vorschau aktiv ist oder nicht
+        let currentBackgroundColor = 'transparent';
+        let currentTransparency = 1;
+
+        // Speichert die zuletzt ausgewählten Werte für Marke und Transparenz
+        let selectedBrand = 'default';
+        let transparencyValue = 100;
+
+        // Buttons "An" und "Aus" Logik
+        buttonOn.addEventListener('click', () => {
+            isOn = true; // Vorschau aktivieren
+            buttonOn.classList.add('button-active');
+            buttonOff.classList.remove('button-active');
+            updatePreview(); // Vorschau basierend auf den aktuellen Werten aktualisieren
+        });
+
+        buttonOff.addEventListener('click', () => {
+            isOn = false; // Vorschau deaktivieren
+            buttonOff.classList.add('button-active');
+            buttonOn.classList.remove('button-active');
+            previewWindow.style.backgroundColor = 'transparent'; // Vorschau im Vorschaufenster deaktivieren
+        });
+
+        // Dropdown-Menü zur Auswahl der Marke
+        brandSelect.addEventListener('change', () => {
+            selectedBrand = brandSelect.value; // Marke speichern
+            if (isOn) {
+                updatePreview(); // Vorschau nur aktualisieren, wenn "An" aktiv ist
+            }
+        });
+
+        // Schieberegler für Transparenz
+        transparencySlider.addEventListener('input', () => {
+            transparencyValue = transparencySlider.value; // Transparenz speichern
+            sliderValue.textContent = transparencyValue + '%';
+            if (isOn) {
+                updatePreview(); // Vorschau nur aktualisieren, wenn "An" aktiv ist
+            }
+        });
+
+        // Aktualisiert das Vorschaufenster basierend auf den aktuellen Werten
+        function updatePreview() {
+            switch (selectedBrand) {
+                case 'A':
+                    currentBackgroundColor = 'purple';
+                    break;
+                case 'B':
+                    currentBackgroundColor = 'green';
+                    break;
+                case 'C':
+                    currentBackgroundColor = 'turquoise';
+                    break;
+                default:
+                    currentBackgroundColor = 'transparent';
+            }
+            previewWindow.style.backgroundColor = currentBackgroundColor;
+            previewWindow.style.opacity = transparencyValue / 100;
+        }
+    </script>
+
+</body>
+</html>
