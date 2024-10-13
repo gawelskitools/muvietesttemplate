@@ -49,15 +49,54 @@
 
         function toggleLayer2() {
             layer2Enabled = !layer2Enabled;
-            const layer2 = window.parent.document.getElementById('layer2');
+            window.parent.toggleLayer2Visibility(layer2Enabled);
             if (layer2Enabled) {
-                layer2.style.display = 'block';
-                layer2.style.backgroundColor = currentColor;
-                updateLayer2Text(currentText[0], currentText[1]);
-            } else {
-                layer2.style.display = 'none';
+                window.parent.updateLayer2(currentColor, currentText[0], currentText[1]);
             }
             updateToggleButton();
         }
 
-        function changeColor
+        function changeColor(color) {
+            currentColor = color;
+            if (layer2Enabled) {
+                window.parent.updateLayer2(currentColor, currentText[0], currentText[1]);
+            }
+        }
+
+        function updateText() {
+            const text = document.getElementById('textInput').value.split('\n');
+            currentText[0] = text[0] || '';
+            currentText[1] = text[1] || '';
+            if (layer2Enabled) {
+                window.parent.updateLayer2(currentText[0], currentText[1]);
+            }
+        }
+
+        window.onload = function() {
+            updateToggleButton();
+        };
+    </script>
+</head>
+<body>
+
+    <div class="controls">
+        <!-- AN/AUS-Button -->
+        <label for="toggleButton">Layer 2 AN/AUS:</label>
+        <button id="toggleButton" onclick="toggleLayer2()">Layer 2: AUS</button>
+
+        <!-- DropDown für die Hintergrundfarbe -->
+        <label for="colorSelect">Hintergrundfarbe wählen:</label>
+        <select id="colorSelect" onchange="changeColor(this.value)">
+            <option value="transparent">Transparent</option>
+            <option value="orange">Orange</option>
+            <option value="green">Grün</option>
+            <option value="darkblue">Dunkelblau</option>
+        </select>
+
+        <!-- Textfeld für den zweizeiligen Text -->
+        <label for="textInput">Zweizeiliger Text (max. 60 Zeichen pro Zeile):</label>
+        <textarea id="textInput" rows="2" maxlength="120" oninput="updateText()" placeholder="Gib deinen Text hier ein..."></textarea>
+    </div>
+
+</body>
+</html>
