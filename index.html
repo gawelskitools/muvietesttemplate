@@ -124,8 +124,10 @@
         // Tab anzeigen und aktuellen Zustand beibehalten
         function showTab(tabUrl) {
             document.getElementById('content-frame').src = tabUrl;
-            applyLayer1();
-            applyLayer2();
+            setTimeout(() => {
+                applyLayer1();
+                applyLayer2();
+            }, 100); // Kurze Verzögerung, um sicherzustellen, dass das iframe geladen wird
         }
 
         // Layer 1 aktualisieren
@@ -142,11 +144,16 @@
 
         function applyLayer1() {
             const vorschau = document.getElementById('vorschau');
+            const layer1Button = document.querySelector("#content-frame").contentWindow.document.getElementById('toggleButton');
             if (layer1State.enabled) {
                 vorschau.style.backgroundColor = layer1State.color;
                 vorschau.style.opacity = layer1State.opacity;
+                layer1Button.classList.add('active');
+                layer1Button.innerText = 'Layer 1: AN';
             } else {
                 vorschau.style.backgroundColor = 'transparent';
+                layer1Button.classList.remove('active');
+                layer1Button.innerText = 'Layer 1: AUS';
             }
         }
 
@@ -167,14 +174,19 @@
             const layer2 = document.getElementById('layer2');
             const line1 = document.getElementById('layer2Line1');
             const line2 = document.getElementById('layer2Line2');
+            const layer2Button = document.querySelector("#content-frame").contentWindow.document.getElementById('toggleButton');
 
             if (layer2State.enabled) {
                 layer2.style.display = 'block';
                 layer2.style.backgroundColor = layer2State.color;
                 line1.textContent = layer2State.text1;
                 line2.textContent = layer2State.text2;
+                layer2Button.classList.add('active');
+                layer2Button.innerText = 'Layer 2: AN';
             } else {
                 layer2.style.display = 'none';
+                layer2Button.classList.remove('active');
+                layer2Button.innerText = 'Layer 2: AUS';
             }
         }
     </script>
