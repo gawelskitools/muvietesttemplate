@@ -98,12 +98,12 @@
 
     <!-- Tab-Leiste -->
     <div class="tabs">
-        <div id="tab1" class="tab active-tab"><a href="Tab1/index_tab1.html" target="content-frame" onclick="switchTab(event, 'tab1')">Tab1 (Layer 1)</a></div>
-        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame" onclick="switchTab(event, 'tab2')">Tab2 (Layer 2)</a></div>
+        <div id="tab1" class="tab active-tab"><a href="index_tab1.html" target="content-frame" onclick="switchTab(event, 'tab1')">Tab1 (Layer 1)</a></div>
+        <div id="tab2" class="tab"><a href="index_tab2.html" target="content-frame" onclick="switchTab(event, 'tab2')">Tab2 (Layer 2)</a></div>
     </div>
 
     <!-- iFrame für den Tab-Inhalt -->
-    <iframe name="content-frame" id="content-frame" src="Tab1/index_tab1.html"></iframe>
+    <iframe name="content-frame" id="content-frame" src="index_tab1.html"></iframe>
 
     <script>
         function switchTab(event, tabId) {
@@ -119,9 +119,9 @@
 
             // Ändere den src des iFrames je nach Tab
             if (tabId === 'tab1') {
-                frame.src = 'Tab1/index_tab1.html';
+                frame.src = 'index_tab1.html';
             } else if (tabId === 'tab2') {
-                frame.src = 'Tab2/index_tab2.html';
+                frame.src = 'index_tab2.html';
             }
         }
     </script>
