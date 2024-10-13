@@ -9,7 +9,7 @@
             margin-top: 10px;
         }
 
-        label, select, input[type="text"], button {
+        label, select, input[type="text"], button, textarea {
             display: block;
             margin: 10px 0;
         }
@@ -30,7 +30,6 @@
         /* Stil für den Textbereich im Vorschaufenster */
         #textInput {
             width: 600px;
-            height: 40px;
             resize: none;
             font-family: 'Sans-Serif';
         }
@@ -40,7 +39,6 @@
         let currentColor = 'transparent'; // Standardfarbe für den transparenten Hintergrund
         let currentText = ['', '']; // Aktueller Text in den beiden Zeilen
 
-        // Funktion zur Aktualisierung des AN/AUS-Buttons
         function updateToggleButton() {
             const button = document.getElementById('toggleButton');
             if (layer2Enabled) {
@@ -52,7 +50,6 @@
             }
         }
 
-        // Funktion zum Ein- und Ausschalten des Layers
         function toggleLayer2() {
             layer2Enabled = !layer2Enabled;
             window.parent.toggleLayer2Background(layer2Enabled); // Layer 2 im übergeordneten Fenster umschalten
@@ -65,7 +62,6 @@
             updateToggleButton();
         }
 
-        // Funktion zum Ändern der Hintergrundfarbe
         function changeColor(color) {
             currentColor = color;
             if (layer2Enabled) {
@@ -73,7 +69,6 @@
             }
         }
 
-        // Funktion zur Aktualisierung des Texts
         function updateText() {
             const text = document.getElementById('textInput').value.split('\n');
             currentText[0] = text[0] || ''; // Zeile 1
