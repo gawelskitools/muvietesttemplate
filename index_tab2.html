@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab 2 - Layer 2 Einstellungen</title>
+    <style>
+        .controls {
+            margin-top: 10px;
+        }
+
+        label, select, textarea, button {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #toggleButton {
+            padding: 10px;
+            border: none;
+            color: white;
+            background-color: red;
+            cursor: pointer;
+        }
+
+        #toggleButton.active {
+            background-color: green;
+        }
+
+        textarea {
+            width: 600px;
+            font-family: 'Sans-Serif';
+        }
+    </style>
+    <script>
+        let layer2Enabled = false;
+        let currentColor = 'transparent';
+        let currentText = ['', ''];
+
+        function updateToggleButton() {
+            const button = document.getElementById('toggleButton');
+            if (layer2Enabled) {
+                button.classList.add('active');
+                button.innerText = 'Layer 2: AN';
+            } else {
+                button.classList.remove('active');
+                button.innerText = 'Layer 2: AUS';
+            }
+        }
+
+        function toggleLayer2() {
+            layer2Enabled = !layer2Enabled;
+            const layer2 = window.parent.document.getElementById('layer2');
+            if (layer2Enabled) {
+                layer2.style.display = 'block';
+                layer2.style.backgroundColor = currentColor;
+                updateLayer2Text(currentText[0], currentText[1]);
+            } else {
+                layer2.style.display = 'none';
+            }
+            updateToggleButton();
+        }
+
+        function changeColor
