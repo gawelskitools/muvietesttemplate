@@ -9,9 +9,22 @@
             margin-top: 10px;
         }
 
-        label, select, input[type="range"] {
+        label, select, input[type="range"], button {
             display: block;
             margin: 10px 0;
+        }
+
+        /* Standardstil für den AN/AUS-Button */
+        #toggleButton {
+            padding: 10px;
+            border: none;
+            color: white;
+            background-color: red; /* Standardmäßig AUS (rot) */
+            cursor: pointer;
+        }
+
+        #toggleButton.active {
+            background-color: green; /* AN (grün) */
         }
 
         .hidden {
@@ -19,24 +32,48 @@
         }
     </style>
     <script>
-        let backgroundEnabled = true; // Standardmäßig ist der Hintergrund aktiviert
+        let backgroundEnabled = false; // Standardmäßig ist der Hintergrund deaktiviert
         let currentColor = 'black';   // Standardfarbe ist Schwarz
         let currentOpacity = 1;       // Standard-Deckkraft ist 100%
+
+        function updateToggleButton() {
+            const button = document.getElementById('toggleButton');
+            if (backgroundEnabled) {
+                button.classList.add('active');
+                button.innerText = 'Hintergrund: AN';
+            } else {
+                button.classList.remove('active');
+                button.innerText = 'Hintergrund: AUS';
+            }
+        }
 
         function toggleBackground() {
             backgroundEnabled = !backgroundEnabled;
             window.parent.toggleVorschauBackground(backgroundEnabled); // Steuert das übergeordnete Fenster
+            if (backgroundEnabled) {
+                window.parent.changeVorschauColor(currentColor); // Setzt die aktuelle Farbe, wenn eingeschaltet
+                window.parent.changeVorschauOpacity(currentOpacity); // Setzt die aktuelle Transparenz, wenn eingeschaltet
+            }
+            updateToggleButton(); // Button-Zustand aktualisieren
         }
 
         function changeColor(color) {
             currentColor = color;
-            window.parent.changeVorschauColor(currentColor); // Steuert die Farbe des übergeordneten Fensters
+            if (backgroundEnabled) {
+                window.parent.changeVorschauColor(currentColor); // Steuert die Farbe des übergeordneten Fensters nur, wenn AN
+            }
         }
 
         function changeOpacity(opacity) {
             currentOpacity = opacity;
-            window.parent.changeVorschauOpacity(currentOpacity); // Steuert die Transparenz des übergeordneten Fensters
+            if (backgroundEnabled) {
+                window.parent.changeVorschauOpacity(currentOpacity); // Steuert die Transparenz des übergeordneten Fensters nur, wenn AN
+            }
         }
+
+        window.onload = function() {
+            updateToggleButton(); // Beim Laden den Button-Zustand setzen
+        };
     </script>
 </head>
 <body>
@@ -45,7 +82,7 @@
     <div class="controls">
         <!-- AN/AUS-Button -->
         <label for="toggleButton">Hintergrund AN/AUS:</label>
-        <button id="toggleButton" onclick="toggleBackground()">AN/AUS</button>
+        <button id="toggleButton" onclick="toggleBackground()">Hintergrund: AUS</button>
 
         <!-- DropDown für die Hintergrundfarbe -->
         <label for="colorSelect">Hintergrundfarbe wählen:</label>
