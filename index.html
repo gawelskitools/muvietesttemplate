@@ -27,6 +27,32 @@
             opacity: 1; /* Standard-Deckkraft */
         }
 
+        /* Layer 2 für den transparenten Hintergrund unten */
+        .layer2 {
+            width: 1280px;
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            background-color: transparent; /* Standardfarbe */
+            display: none;
+            padding-left: 300px;
+            box-sizing: border-box;
+        }
+
+        .layer2-text {
+            color: white;
+            font-family: Sans-Serif;
+        }
+
+        .layer2-text .line1 {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .layer2-text .line2 {
+            font-size: 0.7em;
+        }
+
         /* Stil für die Tabs */
         .tabs {
             width: 1280px; /* Gleiche Breite wie das Vorschaufenster */
@@ -72,6 +98,12 @@
     <!-- Vorschaufenster -->
     <div class="vorschau-container">
         <div id="vorschau" class="vorschau"></div>
+        <div id="layer2" class="layer2">
+            <div class="layer2-text">
+                <div class="line1" id="layer2Line1"></div>
+                <div class="line2" id="layer2Line2"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Tab-Leiste -->
@@ -87,24 +119,32 @@
     <iframe name="content-frame" src="Tab1/index_tab1.html"></iframe>
 
     <script>
-        // Diese Funktion wird von "index_tab1.html" aufgerufen, um die Hintergrundfarbe zu ändern
-        function changeVorschauColor(color) {
-            document.getElementById('vorschau').style.backgroundColor = color;
+        // Layer 2 Steuerung
+        let layer2Element = document.getElementById('layer2');
+        let layer2Line1 = document.getElementById('layer2Line1');
+        let layer2Line2 = document.getElementById('layer2Line2');
+
+        // Funktion zum Ein-/Ausschalten von Layer 2
+        function toggleLayer2Background(enable) {
+            layer2Element.style.display = enable ? 'block' : 'none';
         }
 
-        // Diese Funktion wird von "index_tab1.html" aufgerufen, um die Transparenz zu ändern
-        function changeVorschauOpacity(opacity) {
-            document.getElementById('vorschau').style.opacity = opacity;
+        // Funktion zum Ändern der Hintergrundfarbe von Layer 2
+        function changeLayer2Color(color) {
+            layer2Element.style.backgroundColor = color;
         }
 
-        // Diese Funktion wird von "index_tab1.html" aufgerufen, um den Hintergrund AN/AUS zu schalten
-        function toggleVorschauBackground(enable) {
-            const vorschau = document.getElementById('vorschau');
-            if (enable) {
-                vorschau.style.backgroundColor = vorschau.style.backgroundColor || 'black'; // Wenn noch keine Farbe gesetzt ist, schwarz verwenden
-            } else {
-                vorschau.style.backgroundColor = 'transparent';
-            }
+        // Funktion zur Aktualisierung des Textes in Layer 2
+        function updateLayer2Text(line1, line2) {
+            layer2Line1.textContent = line1;
+            layer2Line2.textContent = line2;
+        }
+
+        // Funktion zum Löschen des Textes und Setzen auf transparent, wenn Layer 2 deaktiviert ist
+        function clearLayer2() {
+            layer2Line1.textContent = '';
+            layer2Line2.textContent = '';
+            layer2Element.style.backgroundColor = 'transparent';
         }
     </script>
 
