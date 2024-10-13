@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorschaufenster mit dynamischen Tabs</title>
+    <title>Vorschaufenster mit Tabs</title>
     <style>
         /* Stil für das Vorschaufenster */
         .vorschau-container {
             width: 100%;
             height: 300px;
-            background-color: transparent;
+            background-color: black; /* Standard-Hintergrundfarbe */
             border: 2px solid #ccc;
-            margin-bottom: 20px; /* Abstand nach unten zu den Tabs */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         .vorschau {
-            width: 90%;
-            height: 90%;
-            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            background-color: black; /* Standardfarbe */
+            opacity: 1; /* Standard-Deckkraft */
         }
 
         /* Stil für die Tabs */
@@ -52,68 +51,50 @@
             text-decoration: none;
             color: #000;
         }
-    </style>
-    <script>
-        // JavaScript-Funktion zum Laden der Inhalte
-        function loadContent(tabId) {
-            const vorschau = document.querySelector('.vorschau');
-            let content = '';
 
-            switch (tabId) {
-                case 'tab1':
-                    content = 'Inhalt von index_tab1_html';
-                    break;
-                case 'tab2':
-                    content = 'Inhalt von index_tab2_html';
-                    break;
-                case 'tab3':
-                    content = 'Inhalt von index_tab3_html';
-                    break;
-                case 'tab4':
-                    content = 'Inhalt von index_tab4_html';
-                    break;
-                case 'tab5':
-                    content = 'Inhalt von index_tab5_html';
-                    break;
-                default:
-                    content = 'Wähle einen Tab aus';
-            }
-
-            // Aktualisiere den Vorschauinhalt
-            vorschau.innerHTML = `<p>${content}</p>`;
-
-            // Entferne die aktive Klasse von allen Tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active-tab');
-            });
-
-            // Füge die aktive Klasse zum ausgewählten Tab hinzu
-            document.getElementById(tabId).classList.add('active-tab');
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
         }
-
-        // Standardmäßiges Laden des Inhalts für Tab1
-        window.onload = function() {
-            loadContent('tab1');
-        };
-    </script>
+    </style>
 </head>
 <body>
 
-    <!-- Vorschaufenster ohne Hintergrund -->
+    <!-- Vorschaufenster -->
     <div class="vorschau-container">
-        <div class="vorschau">
-            <!-- Dynamischer Inhalt wird hier angezeigt -->
-        </div>
+        <div id="vorschau" class="vorschau"></div>
     </div>
 
     <!-- Tab-Leiste -->
     <div class="tabs">
-        <div id="tab1" class="tab active-tab" onclick="loadContent('tab1')">Tab1</div>
-        <div id="tab2" class="tab" onclick="loadContent('tab2')">Tab2</div>
-        <div id="tab3" class="tab" onclick="loadContent('tab3')">Tab3</div>
-        <div id="tab4" class="tab" onclick="loadContent('tab4')">Tab4</div>
-        <div id="tab5" class="tab" onclick="loadContent('tab5')">Tab5</div>
+        <div id="tab1" class="tab active-tab"><a href="Tab1/index_tab1.html" target="content-frame">Tab1</a></div>
+        <div id="tab2" class="tab"><a href="Tab2/index_tab2.html" target="content-frame">Tab2</a></div>
+        <div id="tab3" class="tab"><a href="Tab3/index_tab3.html" target="content-frame">Tab3</a></div>
+        <div id="tab4" class="tab"><a href="Tab4/index_tab4.html" target="content-frame">Tab4</a></div>
+        <div id="tab5" class="tab"><a href="Tab5/index_tab5.html" target="content-frame">Tab5</a></div>
     </div>
+
+    <!-- iFrame für den Tab-Inhalt -->
+    <iframe name="content-frame" src="Tab1/index_tab1.html"></iframe>
+
+    <script>
+        // Diese Funktion wird von "index_tab1.html" aufgerufen, um die Hintergrundfarbe zu ändern
+        function changeVorschauColor(color) {
+            document.getElementById('vorschau').style.backgroundColor = color;
+        }
+
+        // Diese Funktion wird von "index_tab1.html" aufgerufen, um die Transparenz zu ändern
+        function changeVorschauOpacity(opacity) {
+            document.getElementById('vorschau').style.opacity = opacity;
+        }
+
+        // Diese Funktion wird von "index_tab1.html" aufgerufen, um den Hintergrund AN/AUS zu schalten
+        function toggleVorschauBackground(enable) {
+            const vorschau = document.getElementById('vorschau');
+            vorschau.style.backgroundColor = enable ? vorschau.style.backgroundColor : 'transparent';
+        }
+    </script>
 
 </body>
 </html>
