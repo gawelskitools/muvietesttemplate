@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorschaufenster mit Tabs</title>
+    <style>
+        /* Stil für das Vorschaufenster */
+        .vorschau-container {
+            width: 100%;
+            height: 300px;
+            background-color: transparent;
+            border: 2px solid #ccc;
+            margin-bottom: 20px; /* Abstand nach unten zu den Tabs */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vorschau {
+            width: 90%;
+            height: 90%;
+            background-color: transparent;
+        }
+
+        /* Stil für die Tabs */
+        .tabs {
+            display: flex;
+            justify-content: space-evenly;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            margin: 0 5px;
+        }
+
+        .tab:hover {
+            background-color: #ddd;
+        }
+
+        .active-tab {
+            background-color: #ccc;
+            border-bottom: none;
+        }
+
+        /* Stil für den Link innerhalb der Tabs */
+        .tab a {
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vorschaufenster ohne Hintergrund -->
+    <div class="vorschau-container">
+        <div class="vorschau">
+            <p>Vorschau-Inhalt hier</p>
+        </div>
+    </div>
+
+    <!-- Tab-Leiste -->
+    <div class="tabs">
+        <div class="tab active-tab"><a href="tab1.html">Tab1</a></div>
+        <div class="tab"><a href="tab2.html">Tab2</a></div>
+        <div class="tab"><a href="tab3.html">Tab3</a></div>
+        <div class="tab"><a href="tab4.html">Tab4</a></div>
+        <div class="tab"><a href="tab5.html">Tab5</a></div>
+    </div>
+
+</body>
+</html>
