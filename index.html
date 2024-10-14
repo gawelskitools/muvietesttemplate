@@ -65,7 +65,7 @@
         .swoosh {
             position: absolute;
             bottom: 70px;
-            width: 350px;
+            width: 400px;
             height: 5px;
             background-color: white;
             z-index: 3;
@@ -319,8 +319,8 @@
 
                     <!-- Slider für Swoosh-Geschwindigkeit -->
                     <div class="slider-group">
-                        <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">50%</span></div>
-                        <input type="range" id="swooshSpeedSlider" min="1" max="100" value="50">
+                        <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">10%</span></div>
+                        <input type="range" id="swooshSpeedSlider" min="1" max="100" value="10">
                     </div>
                 </div>
             </div>
@@ -543,7 +543,7 @@
             function swooshMove() {
                 if (swooshPosition > 480) {
                     swooshPosition -= 30; // Schneller Start
-                } else if (swooshPosition > 240) {
+                } else if (swooshPosition > 140) {
                     swooshPosition -= 10; // Langsamer in der Mitte
                 } else {
                     swooshPosition -= 30; // Schneller Ausgang
@@ -551,10 +551,10 @@
 
                 swoosh.style.left = swooshPosition + 'px';
 
-                if (swooshPosition < -350) {
+                if (swooshPosition < -500) {
                     swooshPosition = 720;
                     clearInterval(swooshInterval);
-                    setTimeout(startSwooshAnimation, 500); // Verzögerung
+                    setTimeout(startSwooshAnimation, 1500); // Verzögerung
                 }
             }
 
