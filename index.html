@@ -49,13 +49,12 @@
             bottom: 0;
             display: flex;
             align-items: center;
-            padding-left: 100px;
+            justify-content: center;
             font-family: sans-serif;
             font-weight: bold;
             font-size: 1.5em;
             color: white;
         }
-
         .swoosh {
             position: absolute;
             bottom: 70px;
@@ -67,7 +66,6 @@
             display: none;
         }
 
-        /* Logo */
         .logo {
             position: absolute;
             bottom: 10px;
@@ -107,11 +105,11 @@
             height: 20px;
             line-height: 20px;
             text-align: center;
-            width: 100%; /* Breite des Headers anpassen */
-            box-sizing: border-box; /* Box-Sizing für exakte Breite */
-            margin: 0; /* Überschüssige Ränder entfernen */
-            padding: 0; /* Überschüssiges Padding entfernen */
-            position: relative; /* Entferne absolute Positionierung */
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            position: relative;
         }
 
         .button-group {
@@ -149,6 +147,31 @@
             margin-bottom: 5px;
         }
 
+        /* Area5 specific */
+        .area5-background {
+            width: 300px;
+            height: 300px;
+            background-color: transparent;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .area5-logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .area5-text {
+            text-align: center;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 1em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -161,8 +184,13 @@
             <div class="layer layer2" id="layer2"></div>
             <div class="layer layer3" id="layer3"></div>
             <div class="layer layer4" id="layer4"></div>
-            <div class="layer layer5" id="layer5"></div>
-            <div class="layer layer6" id="layer6"></div>
+            <div class="layer layer5" id="layer5">
+                <div class="area5-background" id="layer5-background">
+                    <img src="" alt="Logo" id="layer5-logo" class="area5-logo">
+                    <div class="area5-text" id="layer5-text"></div>
+                </div>
+            </div>
+            <div class="layer6" id="layer6"></div>
 
             <!-- Swoosh-Linie -->
             <div class="swoosh" id="swoosh"></div>
@@ -264,12 +292,33 @@
                 </div>
             </div>
 
-            <!-- Weitere Bereiche (Area5 bis Area6) -->
+            <!-- Area5 -->
             <div id="area5" class="area">
                 <div class="area-header">area5 (Layer 5)</div>
-                <div class="area-content"></div>
+                <div class="area-content">
+                    <div class="button-group">
+                        <button id="buttonOn5">An</button>
+                        <button id="buttonOff5" class="button-active">Aus</button>
+                    </div>
+
+                    <div class="dropdown-group">
+                        <label for="brandSelect5">Marke wählen:</label>
+                        <select id="brandSelect5">
+                            <option value="default">-- Wähle Marke --</option>
+                            <option value="A">Marke A</option>
+                            <option value="B">Marke B</option>
+                            <option value="C">Marke C</option>
+                        </select>
+                    </div>
+
+                    <!-- Textfeld unterhalb des Dropdown-Menüs -->
+                    <div class="text-group">
+                        <input type="text" id="textInput5" maxlength="15" placeholder="Text eingeben..." class="area5-text">
+                    </div>
+                </div>
             </div>
 
+            <!-- Area6 -->
             <div id="area6" class="area">
                 <div class="area-header">area6 (Layer 6)</div>
                 <div class="area-content"></div>
@@ -505,6 +554,71 @@
             } else {
                 logo.style.display = 'none';
             }
+        }
+
+        // Layer 5 Steuerung (Area5) und Anzeige im Vorschaufenster
+        const buttonOn5 = document.getElementById('buttonOn5');
+        const buttonOff5 = document.getElementById('buttonOff5');
+        const brandSelect5 = document.getElementById('brandSelect5');
+        const textInput5 = document.getElementById('textInput5');
+        const layer5Background = document.getElementById('layer5-background');
+        const layer5Logo = document.getElementById('layer5-logo');
+        const layer5Text = document.getElementById('layer5-text');
+
+        let isOn5 = false;
+
+        // "An"-Button aktiviert die Anzeige im Vorschaufenster
+        buttonOn5.addEventListener('click', () => {
+            isOn5 = true;
+            buttonOn5.classList.add('button-active');
+            buttonOff5.classList.remove('button-active');
+            updateLayer5();
+        });
+
+        // "Aus"-Button deaktiviert die Anzeige im Vorschaufenster
+        buttonOff5.addEventListener('click', () => {
+            isOn5 = false;
+            buttonOff5.classList.add('button-active');
+            buttonOn5.classList.remove('button-active');
+            layer5Background.style.backgroundColor = 'transparent';
+            layer5Logo.src = '';
+            layer5Text.textContent = '';
+        });
+
+        // Dropdown-Menü für die Auswahl der Marke
+        brandSelect5.addEventListener('change', () => {
+            if (isOn5) {
+                updateLayer5();
+            }
+        });
+
+        // Textfeld für die Texteingabe
+        textInput5.addEventListener('input', () => {
+            if (isOn5) {
+                layer5Text.textContent = textInput5.value;
+            }
+        });
+
+        function updateLayer5() {
+            const selectedBrand = brandSelect5.value;
+            switch (selectedBrand) {
+                case 'A':
+                    layer5Background.style.backgroundColor = 'purple';
+                    layer5Logo.src = 'MarkeALogo.png';
+                    break;
+                case 'B':
+                    layer5Background.style.backgroundColor = 'green';
+                    layer5Logo.src = 'MarkeBLogo.png';
+                    break;
+                case 'C':
+                    layer5Background.style.backgroundColor = 'turquoise';
+                    layer5Logo.src = 'MarkeCLogo.png';
+                    break;
+                default:
+                    layer5Background.style.backgroundColor = 'transparent';
+                    layer5Logo.src = '';
+            }
+            layer5Text.textContent = textInput5.value;
         }
 
     </script>
