@@ -193,7 +193,7 @@
         }
 
         .area5-logo {
-            width: 130px; /* Um 30% vergrößert */
+            width: 300px; /* auf 300px vergrößert */
             height: auto;
         }
 
@@ -202,9 +202,12 @@
             font-family: sans-serif;
             font-weight: bold;
             font-size: 1em;
-            margin-top: 10px;
             text-align: center;
-        }
+            position: absolute;  /* Absolut positionieren */
+            bottom: 15px;        /* Abstand vom unteren Rand */
+            left: 50%;
+            transform: translateX(-50%);  /* Horizontal zentrieren */
+         }
 
         .text-group5 {
             text-align: center;
