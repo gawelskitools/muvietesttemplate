@@ -107,9 +107,11 @@
             height: 20px;
             line-height: 20px;
             text-align: center;
-            position: absolute;
-            top: 0;
-            width: 100%;
+            width: 100%; /* Breite des Headers anpassen */
+            box-sizing: border-box; /* Box-Sizing für exakte Breite */
+            margin: 0; /* Überschüssige Ränder entfernen */
+            padding: 0; /* Überschüssiges Padding entfernen */
+            position: relative; /* Entferne absolute Positionierung */
         }
 
         .button-group {
