@@ -41,11 +41,12 @@
             left: 0;
         }
 
+        /* Layer für die Areas */
         .layer1 { z-index: 1; }
         .layer2 {
             z-index: 2;
-            width: 720px;
-            height: 70px;
+            width: 720px; /* Alte Werte */
+            height: 70px;  /* Alte Werte */
             bottom: 0;
             display: flex;
             align-items: center;
@@ -56,6 +57,11 @@
             font-size: 1.5em;
             color: white;
         }
+        .layer3 { z-index: 3; }
+        .layer4 { z-index: 4; }
+        .layer5 { z-index: 5; }
+        .layer6 { z-index: 6; }
+
         .swoosh {
             position: absolute;
             bottom: 70px;
@@ -187,7 +193,7 @@
         }
 
         .area5-logo {
-            width: 100px;
+            width: 130px; /* Um 30% vergrößert */
             height: auto;
         }
 
@@ -198,6 +204,24 @@
             font-size: 1em;
             margin-top: 10px;
             text-align: center;
+        }
+
+        .text-group5 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .text-group5 input {
+            width: 100%;
+            padding: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .char-counter5 {
+            text-align: right;
+            font-size: 0.8em;
+            color: gray;
         }
     </style>
 </head>
@@ -217,7 +241,7 @@
                     <div class="area5-text" id="layer5-text"></div>
                 </div>
             </div>
-            <div class="layer6" id="layer6"></div>
+            <div class="layer layer6" id="layer6"></div>
 
             <!-- Swoosh-Linie -->
             <div class="swoosh" id="swoosh"></div>
@@ -338,9 +362,11 @@
                         </select>
                     </div>
 
-                    <!-- Textfeld unterhalb des Dropdown-Menüs -->
-                    <div class="text-group">
-                        <input type="text" id="textInput5" maxlength="15" placeholder="Text eingeben..." class="area5-text">
+                    <!-- Textfeld mit Überschrift und Zeichen-Counter -->
+                    <div class="text-group5">
+                        <label for="textInput5">Bumper-Text (max. 15 Zeichen):</label><br>
+                        <input type="text" id="textInput5" maxlength="15" placeholder="Text eingeben...">
+                        <div class="char-counter5"><span id="charCount5">0</span>/15 Zeichen</div>
                     </div>
                 </div>
             </div>
@@ -591,6 +617,7 @@
         const layer5Background = document.getElementById('layer5-background');
         const layer5Logo = document.getElementById('layer5-logo');
         const layer5Text = document.getElementById('layer5-text');
+        const charCount5 = document.getElementById('charCount5');
 
         let isOn5 = false;
 
@@ -623,6 +650,7 @@
         textInput5.addEventListener('input', () => {
             if (isOn5) {
                 layer5Text.textContent = textInput5.value;
+                charCount5.textContent = textInput5.value.length;
             }
         });
 
