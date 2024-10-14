@@ -541,12 +541,12 @@
             let swooshPosition = 720;
 
             function swooshMove() {
-                if (swooshPosition > 450) {
-                    swooshPosition -= 30; // Schneller Start
+                if (swooshPosition > 500) {
+                    swooshPosition -= 35; // Schneller Start
                 } else if (swooshPosition > 100) {
-                    swooshPosition -= 20; // Langsamer in der Mitte
+                    swooshPosition -= 10; // Langsamer in der Mitte
                 } else {
-                    swooshPosition -= 30; // Schneller Ausgang
+                    swooshPosition -= 50; // Schneller Ausgang
                 }
 
                 swoosh.style.left = swooshPosition + 'px';
@@ -554,7 +554,7 @@
                 if (swooshPosition < -500) {
                     swooshPosition = 720;
                     clearInterval(swooshInterval);
-                    setTimeout(startSwooshAnimation, 2500); // Verzögerung
+                    setTimeout(startSwooshAnimation, 1750); // Verzögerung
                 }
             }
 
