@@ -45,8 +45,8 @@
         .layer1 { z-index: 1; }
         .layer2 {
             z-index: 2;
-            width: 720px; /* Alte Werte */
-            height: 70px;  /* Alte Werte */
+            width: 720px;
+            height: 70px;
             bottom: 0;
             display: flex;
             align-items: center;
@@ -65,7 +65,7 @@
         .swoosh {
             position: absolute;
             bottom: 70px;
-            width: 400px;
+            width: 350px;
             height: 5px;
             background-color: white;
             z-index: 3;
@@ -77,7 +77,7 @@
             position: absolute;
             bottom: 10px;
             left: 10px;
-            width: 50px;
+            width: 100px;
             height: auto;
             display: none;
             z-index: 4;
@@ -193,7 +193,7 @@
         }
 
         .area5-logo {
-            width: 225px; /* auf 300px vergrößert */
+            width: 130px; /* Um 30% vergrößert */
             height: auto;
         }
 
@@ -207,7 +207,7 @@
             bottom: 15px;        /* Abstand vom unteren Rand */
             left: 50%;
             transform: translateX(-50%);  /* Horizontal zentrieren */
-         }
+        }
 
         .text-group5 {
             text-align: center;
@@ -240,7 +240,7 @@
             <div class="layer layer4" id="layer4"></div>
             <div class="layer layer5" id="layer5">
                 <div class="area5-background" id="layer5-background">
-                    <img src="" alt="Logo" id="layer5-logo" class="area5-logo">
+                    <img alt="Logo" id="layer5-logo" class="area5-logo">
                     <div class="area5-text" id="layer5-text"></div>
                 </div>
             </div>
@@ -250,7 +250,7 @@
             <div class="swoosh" id="swoosh"></div>
 
             <!-- Logo-Container -->
-            <img src="" alt="Logo" id="logo" class="logo">
+            <img alt="Logo" id="logo" class="logo">
         </div>
 
         <!-- Area-Container -->
@@ -319,8 +319,8 @@
 
                     <!-- Slider für Swoosh-Geschwindigkeit -->
                     <div class="slider-group">
-                        <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">10%</span></div>
-                        <input type="range" id="swooshSpeedSlider" min="1" max="100" value="10">
+                        <div class="slider-value">Swoosh-Geschwindigkeit: <span id="swooshSpeedValue">50%</span></div>
+                        <input type="range" id="swooshSpeedSlider" min="1" max="100" value="50">
                     </div>
                 </div>
             </div>
@@ -442,125 +442,6 @@
             layer1.style.opacity = currentTransparency1;
         }
 
-        // Layer 2 Steuerung (Area2)
-        const buttonOn2 = document.getElementById('buttonOn2');
-        const buttonOff2 = document.getElementById('buttonOff2');
-        const layer2 = document.getElementById('layer2');
-        const brandSelect2 = document.getElementById('brandSelect2');
-        const textInput = document.getElementById('textInput');
-        const charCount = document.getElementById('charCount');
-
-        let isOn2 = false;
-        let currentBackgroundColor2 = 'transparent';
-
-        buttonOn2.addEventListener('click', () => {
-            isOn2 = true;
-            buttonOn2.classList.add('button-active');
-            buttonOff2.classList.remove('button-active');
-            updateLayer2();
-        });
-
-        buttonOff2.addEventListener('click', () => {
-            isOn2 = false;
-            buttonOff2.classList.add('button-active');
-            buttonOn2.classList.remove('button-active');
-            layer2.style.backgroundColor = 'transparent';
-            layer2.textContent = ''; // Text wird entfernt, wenn "Aus" geklickt wird
-        });
-
-        brandSelect2.addEventListener('change', () => {
-            if (isOn2) {
-                updateLayer2();
-            }
-        });
-
-        textInput.addEventListener('input', () => {
-            const textValue = textInput.value;
-            charCount.textContent = textValue.length;
-            if (isOn2) {
-                layer2.textContent = textValue; // Text wird direkt im Vorschaufenster angezeigt
-            }
-        });
-
-        function updateLayer2() {
-            const selectedBrand = brandSelect2.value;
-            switch (selectedBrand) {
-                case 'A':
-                    currentBackgroundColor2 = 'purple';
-                    break;
-                case 'B':
-                    currentBackgroundColor2 = 'green';
-                    break;
-                case 'C':
-                    currentBackgroundColor2 = 'turquoise';
-                    break;
-                default:
-                    currentBackgroundColor2 = 'transparent';
-            }
-            layer2.style.backgroundColor = currentBackgroundColor2;
-            layer2.textContent = textInput.value; // Zeige aktuellen Text im Layer
-        }
-
-        // Layer 3 Steuerung (Area3) und Swoosh Steuerung
-        const buttonOn3 = document.getElementById('buttonOn3');
-        const buttonOff3 = document.getElementById('buttonOff3');
-        const swooshSpeedSlider = document.getElementById('swooshSpeedSlider');
-        const swooshSpeedValue = document.getElementById('swooshSpeedValue');
-        const swoosh = document.getElementById('swoosh');
-
-        let isOn3 = false;
-        let swooshInterval;
-        let swooshSpeed = 50;
-
-        buttonOn3.addEventListener('click', () => {
-            isOn3 = true;
-            buttonOn3.classList.add('button-active');
-            buttonOff3.classList.remove('button-active');
-            startSwooshAnimation();
-        });
-
-        buttonOff3.addEventListener('click', () => {
-            isOn3 = false;
-            buttonOff3.classList.add('button-active');
-            buttonOn3.classList.remove('button-active');
-            clearInterval(swooshInterval);
-            swoosh.style.display = 'none';
-        });
-
-        swooshSpeedSlider.addEventListener('input', () => {
-            swooshSpeed = swooshSpeedSlider.value;
-            swooshSpeedValue.textContent = swooshSpeed + '%';
-            if (isOn3) {
-                startSwooshAnimation();
-            }
-        });
-
-        function startSwooshAnimation() {
-            clearInterval(swooshInterval);
-            swoosh.style.display = 'block';
-            let swooshPosition = 720;
-
-            function swooshMove() {
-                if (swooshPosition > 500) {
-                    swooshPosition -= 35; // Schneller Start
-                } else if (swooshPosition > 100) {
-                    swooshPosition -= 10; // Langsamer in der Mitte
-                } else {
-                    swooshPosition -= 50; // Schneller Ausgang
-                }
-
-                swoosh.style.left = swooshPosition + 'px';
-
-                if (swooshPosition < -500) {
-                    swooshPosition = 720;
-                    clearInterval(swooshInterval);
-                    setTimeout(startSwooshAnimation, 1750); // Verzögerung
-                }
-            }
-
-            swooshInterval = setInterval(swooshMove, 600 / swooshSpeed);
-        }
-
         // Layer 4 Steuerung (Area4) und Logo-Anzeige
         const buttonOn4 = document.getElementById('buttonOn4');
         const buttonOff4 = document.getElementById('buttonOff4');
@@ -590,95 +471,37 @@
         });
 
         function updateLogo() {
-            const selectedBrand = brandSelect4.value;
+            const selectedBrand = brandSelect4.value;  // Beispiel für Area 4
+            let logoSrc = '';
+
             switch (selectedBrand) {
                 case 'A':
-                    logo.src = 'MarkeALogo.png';
+                    logoSrc = 'MarkeALogo.png';
                     break;
                 case 'B':
-                    logo.src = 'MarkeBLogo.png';
+                    logoSrc = 'MarkeBLogo.png';
                     break;
                 case 'C':
-                    logo.src = 'MarkeCLogo.png';
+                    logoSrc = 'MarkeCLogo.png';
                     break;
-                default:
-                    logo.src = '';
             }
 
-            if (logo.src) {
-                logo.style.display = 'block';
+            // Zeige das Logo nur, wenn der `src` nicht leer ist
+            if (logoSrc) {
+                logo.src = logoSrc;
+                logo.style.display = 'block';  // Zeige das Logo an
             } else {
-                logo.style.display = 'none';
+                logo.removeAttribute('src');   // Entferne das src-Attribut
+                logo.style.display = 'none';   // Verstecke das Logo, wenn kein src gesetzt ist
             }
         }
 
-        // Layer 5 Steuerung (Area5) und Anzeige im Vorschaufenster
-        const buttonOn5 = document.getElementById('buttonOn5');
-        const buttonOff5 = document.getElementById('buttonOff5');
-        const brandSelect5 = document.getElementById('brandSelect5');
-        const textInput5 = document.getElementById('textInput5');
-        const layer5Background = document.getElementById('layer5-background');
-        const layer5Logo = document.getElementById('layer5-logo');
-        const layer5Text = document.getElementById('layer5-text');
-        const charCount5 = document.getElementById('charCount5');
-
-        let isOn5 = false;
-
-        // "An"-Button aktiviert die Anzeige im Vorschaufenster
-        buttonOn5.addEventListener('click', () => {
-            isOn5 = true;
-            buttonOn5.classList.add('button-active');
-            buttonOff5.classList.remove('button-active');
-            updateLayer5();
+        // Verstecke das Logo beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', () => {
+            const logo = document.getElementById('logo');
+            logo.removeAttribute('src');  // Entferne das src-Attribut beim Start der Seite
+            logo.style.display = 'none';  // Verstecke das Logo beim Start der Seite
         });
-
-        // "Aus"-Button deaktiviert die Anzeige im Vorschaufenster
-        buttonOff5.addEventListener('click', () => {
-            isOn5 = false;
-            buttonOff5.classList.add('button-active');
-            buttonOn5.classList.remove('button-active');
-            layer5Background.style.backgroundColor = 'transparent';
-            layer5Logo.src = '';
-            layer5Text.textContent = '';
-        });
-
-        // Dropdown-Menü für die Auswahl der Marke
-        brandSelect5.addEventListener('change', () => {
-            if (isOn5) {
-                updateLayer5();
-            }
-        });
-
-        // Textfeld für die Texteingabe
-        textInput5.addEventListener('input', () => {
-            if (isOn5) {
-                layer5Text.textContent = textInput5.value;
-                charCount5.textContent = textInput5.value.length;
-            }
-        });
-
-        function updateLayer5() {
-            const selectedBrand = brandSelect5.value;
-            switch (selectedBrand) {
-                case 'A':
-                    layer5Background.style.backgroundColor = 'purple';
-                    layer5Logo.src = 'MarkeALogo.png';
-                    break;
-                case 'B':
-                    layer5Background.style.backgroundColor = 'green';
-                    layer5Logo.src = 'MarkeBLogo.png';
-                    break;
-                case 'C':
-                    layer5Background.style.backgroundColor = 'turquoise';
-                    layer5Logo.src = 'MarkeCLogo.png';
-                    break;
-                default:
-                    layer5Background.style.backgroundColor = 'transparent';
-                    layer5Logo.src = '';
-            }
-            layer5Text.textContent = textInput5.value;
-        }
-
     </script>
 
 </body>
